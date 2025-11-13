@@ -117,20 +117,25 @@ section.big, .section.big {
 
 @media screen and (max-width: 640px){
 
+    section, .section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
     .wrap {
-        max-width: 1040px;
+        max-width: 100%;
         padding-left: 20px;
         padding-right: 20px;
     }
-    
+
     .wrap-wide {
-        max-width: 1250px;
+        max-width: 100%;
         padding-left: 20px;
         padding-right: 20px;
     }
 
     .wrap-text {
-        max-width: 760px;
+        max-width: 100%;
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -148,11 +153,12 @@ section.big, .section.big {
     display: inline-block;
     padding: 13px 30px 13px 30px;
     position: relative;
-    font-size: 14px; 
-    line-height: 24px; 
-    text-decoration: none; 
+    font-size: 14px;
+    line-height: 24px;
+    text-decoration: none;
     background: #fff;
     border-radius: 25px;
+    white-space: nowrap;
 }
 
 .btn:hover {
@@ -173,6 +179,40 @@ section.big, .section.big {
 .jump-link {
     letter-spacing: 0.05em;
     text-transform: uppercase;
+}
+
+@media screen and (max-width: 640px){
+    .btn {
+        padding: 12px 20px;
+        font-size: 12px;
+        white-space: normal;
+        height: auto;
+        min-height: 44px;
+        line-height: 1.4;
+    }
+
+    .hero-cta {
+        top: 65%;
+        padding: 0 20px;
+        width: 100%;
+    }
+
+    .jump-link {
+        letter-spacing: 0.02em;
+        display: inline-block;
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .btn {
+        padding: 10px 16px;
+        font-size: 11px;
+    }
+
+    .jump-link {
+        letter-spacing: 0;
+    }
 }
 
 
@@ -496,21 +536,29 @@ header .parallax .layer.fade-in.appear {
 @media screen and (max-width: 640px){
 
     header {
-        height: 85vh;
+        height: 100vh;
+        min-height: 600px;
     }
 
     header .parallax {
-        height: 85vh;
+        height: 100vh;
+        min-height: 600px;
     }
-    
+
     header .parallax .layer {
-        height: 85vh;
+        height: 100vh;
+        min-height: 600px;
     }
 
     header .parallax .layer.fade-in {
         position: absolute;
-        height: 75vh;
-        margin-top: 5vh;
+        height: 100vh;
+        min-height: 600px;
+        margin-top: 0;
+    }
+
+    header .bottom-fade {
+        height: 40vh;
     }
 }
 
@@ -724,20 +772,38 @@ header .parallax .layer.fade-in.appear {
     }
 }
 
-@media screen and (max-width: 640px){ 
+@media screen and (max-width: 640px){
     .about {
-        padding-top: 180px;
-        margin-bottom: 100px;
-    }  
+        padding-top: 60px;
+        padding-bottom: 0px;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+    }
 
     .about .background-image {
-        height: 500px;
+        position: relative;
+        height: 400px;
+        width: 100%;
+        margin-bottom: 40px;
     }
 
     .about .bottom-fade {
-        top: 150px;
-        height: 350px;
-        bottom: auto;
+        display: none;
+    }
+
+    .about .wrap-text {
+        transform: translate(0, 0);
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .about p {
+        font-size: 14px;
+        line-height: 24px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 0;
     }
 
     .about p strong {
@@ -925,23 +991,68 @@ header .parallax .layer.fade-in.appear {
 .portfolio.fade-in.appear .single-image:nth-child(3):hover { transform: translate(-120%, 5%) rotate(-15deg); z-index: 1; transition: all .3s cubic-bezier(0.7, 0, 0.3, 1); }
 .portfolio.fade-in.appear .single-image:nth-child(4):hover { transform: translate(-5%, -5%) rotate(10deg); z-index: 2; transition: all .3s cubic-bezier(0.7, 0, 0.3, 1); }
 
-@media screen and (max-width: 640px){ 
+@media screen and (max-width: 640px){
 
-    .portfolio .single-image {
-        width: 200px;
-        background: #252525;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    
-    .portfolio .single-image.landscape {
-        width: 250px;
+    .portfolio {
+        padding-top: 80px;
+        padding-bottom: 60px;
     }
 
     .portfolio .wrap {
-        margin-bottom: 160px;
+        height: auto;
+        margin-bottom: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .portfolio .single-image {
+        width: 100%;
+        background: #252525;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+    }
+
+    .portfolio .single-image.landscape {
+        width: 100%;
+    }
+
+    .portfolio .single-image:before {
+        padding-top: 60%;
+    }
+
+    #recent-projects {
+        padding-top: 80px;
+    }
+
+    #recent-projects .wrap {
+        margin-bottom: 40px;
+    }
+
+    /* Remove all the fancy positioning on mobile */
+    .portfolio.fade-in .single-image:nth-child(1),
+    .portfolio.fade-in .single-image:nth-child(2),
+    .portfolio.fade-in .single-image:nth-child(3),
+    .portfolio.fade-in .single-image:nth-child(4) {
+        transform: none;
+        position: relative;
+    }
+
+    .portfolio.fade-in.appear .single-image:nth-child(1),
+    .portfolio.fade-in.appear .single-image:nth-child(2),
+    .portfolio.fade-in.appear .single-image:nth-child(3),
+    .portfolio.fade-in.appear .single-image:nth-child(4) {
+        transform: none;
+    }
+
+    .portfolio.fade-in.appear .single-image:nth-child(1):hover,
+    .portfolio.fade-in.appear .single-image:nth-child(2):hover,
+    .portfolio.fade-in.appear .single-image:nth-child(3):hover,
+    .portfolio.fade-in.appear .single-image:nth-child(4):hover {
+        transform: none;
     }
 
 }
@@ -1267,17 +1378,27 @@ footer .credits-row li a:hover {
     }
 }
 
-@media screen and (max-width: 640px){ 
+@media screen and (max-width: 640px){
     footer {
-        padding-bottom: 80px;
+        padding: 120px 0 80px 0;
     }
+
     footer .mail {
-        font-size: 26px;
-        line-height: 40px;
+        font-size: 22px;
+        line-height: 36px;
+        word-break: break-word;
     }
 
     footer .background-image, footer .left-fade, footer .top-fade {
         width: 100vw;
+    }
+
+    footer .logo-row {
+        margin: 80px 0 -40px -15px;
+    }
+
+    footer .logo-row img {
+        height: 150px;
     }
 
 }

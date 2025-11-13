@@ -13,6 +13,7 @@ python3 generate_project.py your_project_name "Project Title" "Location / Date"
 
 This automatically:
 - Generates the project HTML page
+- Creates thumnails for all images
 - Adds it to the portfolio grid
 - Updates recent projects on homepage (only displays 4 most recent projects)
 
