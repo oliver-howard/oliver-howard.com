@@ -70,6 +70,9 @@ content="{project_title} photography project by Oliver Howard.">
 
         <link rel="canonical" href="../projects/{project_name}.html">
 
+        <link rel="icon" type="image/x-icon" href="../assets/img/oliver-howard-logo-black.png">
+        <link rel="apple-touch-icon" href="../assets/img/oliver-howard-logo-black.png">
+
         <link href="../assets/css/normalize.css" rel="stylesheet">
         <link href="../assets/css/navigation.css" rel="stylesheet">
         <link href="../assets/css/photoswipe.css" rel="stylesheet">
@@ -217,7 +220,7 @@ def add_to_portfolio(
 
     # Find the insertion point after the opening comments and insert at the TOP
     # This ensures new projects appear first in the grid
-    marker = '<!-- Duplicate and customize these for each of your shoots/trips -->\n'
+    marker = "<!-- Duplicate and customize these for each of your shoots/trips -->\n"
 
     if marker in portfolio_content:
         # Insert after the comment at the top
@@ -311,7 +314,7 @@ def main():
                 cwd=script_dir,
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
             )
             # Print the sync script output
             if result.stdout:
