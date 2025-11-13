@@ -25,14 +25,55 @@ def get_image_dimensions(image_path):
         return None
 
 
-def generate_photo_item(photo_path, width, height):
+def create_thumbnail(image_path, thumbnail_path, max_size=800):
+    """
+    Create a thumbnail version of an image.
+    
+    Args:
+        image_path: Path to the original image
+        thumbnail_path: Path where thumbnail should be saved
+        max_size: Maximum dimension (width or height) for the thumbnail
+    
+    Returns:
+        Tuple of (width, height) of the thumbnail, or None on error
+    """
+    try:
+        with Image.open(image_path) as img:
+            # Convert RGBA to RGB if necessary
+            if img.mode in ('RGBA', 'LA', 'P'):
+                background = Image.new('RGB', img.size, (255, 255, 255))
+                if img.mode == 'P':
+                    img = img.convert('RGBA')
+                background.paste(img, mask=img.split()[-1] if img.mode in ('RGBA', 'LA') else None)
+                img = background
+            
+            # Calculate new dimensions maintaining aspect ratio
+            width, height = img.size
+            if width > height:
+                new_width = max_size
+                new_height = int((max_size / width) * height)
+            else:
+                new_height = max_size
+                new_width = int((max_size / height) * width)
+            
+            # Resize and save with optimization
+            img_resized = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            img_resized.save(thumbnail_path, 'JPEG', quality=85, optimize=True)
+            
+            return (new_width, new_height)
+    except (OSError, IOError) as e:
+        print(f"Error creating thumbnail for {image_path}: {e}")
+        return None
+
+
+def generate_photo_item(photo_path, thumbnail_path, width, height, thumb_width, thumb_height):
     """Generate HTML for a single photo item."""
     return f"""
             <div class="photoswipe-item fade-in">
                 <a href="../media/projects/{photo_path}" itemprop="contentUrl" \
 data-size="{width}x{height}">
-                    <img src="../media/projects/{photo_path}" \
-width="{width}" height="{height}"/>
+                    <img src="../media/projects/{thumbnail_path}" \
+width="{thumb_width}" height="{thumb_height}"/>
                         <div class="overlay"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" \
 viewBox="0 0 24 24">
@@ -264,12 +305,17 @@ def main():
         print(f"Error: Media folder not found: {paths['media']}")
         sys.exit(1)
 
+    # Create thumbnails directory
+    thumbnails_dir = paths["media"] / "thumbnails"
+    thumbnails_dir.mkdir(exist_ok=True)
+
     # Find all image files with dimensions
     image_extensions = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
     images = [
         (file.name, dimensions)
         for file in sorted(paths["media"].iterdir())
         if file.suffix.lower() in image_extensions
+        and file.name != "thumbnails"  # Skip thumbnails directory
         and (dimensions := get_image_dimensions(file)) is not None
     ]
 
@@ -278,11 +324,48 @@ def main():
         sys.exit(1)
 
     print(f"Found {len(images)} images in {paths['media']}")
+    print("Creating thumbnails...")
+
+    # Create thumbnails and collect image data
+    image_data = []
+    for filename, (width, height) in images:
+        original_path = paths["media"] / filename
+        # Keep original extension for thumbnail, but save as .jpg
+        thumbnail_filename = Path(filename).stem + "_thumb.jpg"
+        thumbnail_path = thumbnails_dir / thumbnail_filename
+        
+        # Create thumbnail
+        thumb_dimensions = create_thumbnail(original_path, thumbnail_path)
+        
+        if thumb_dimensions:
+            thumb_width, thumb_height = thumb_dimensions
+            image_data.append({
+                'filename': filename,
+                'width': width,
+                'height': height,
+                'thumbnail': f"thumbnails/{thumbnail_filename}",
+                'thumb_width': thumb_width,
+                'thumb_height': thumb_height
+            })
+            print(f"  ✓ {filename} -> {thumbnail_filename}")
+        else:
+            print(f"  ✗ Failed to create thumbnail for {filename}")
+
+    if not image_data:
+        print("Error: No thumbnails were created successfully")
+        sys.exit(1)
 
     # Generate HTML and write to file
     photos_html = "".join(
-        generate_photo_item(f"{project_folder}/{filename}", width, height)
-        for filename, (width, height) in images
+        generate_photo_item(
+            f"{project_folder}/{img['filename']}", 
+            f"{project_folder}/{img['thumbnail']}", 
+            img['width'], 
+            img['height'],
+            img['thumb_width'],
+            img['thumb_height']
+        )
+        for img in image_data
     )
     html_content = generate_html(
         project_folder, project_title, description, photos_html
@@ -293,10 +376,10 @@ def main():
 
     print(f"\nSuccessfully generated: {paths['output']}")
     print(f"Project: {project_title}")
-    print(f"Images: {len(images)}")
+    print(f"Images: {len(image_data)}")
 
-    # Add to portfolio.html with first image as cover
-    cover_image_path = f"{project_folder}/{images[0][0]}"
+    # Add to portfolio.html with first image (full-size) as cover
+    cover_image_path = f"{project_folder}/{image_data[0]['filename']}"
     if add_to_portfolio(
         project_folder, project_title, description, cover_image_path, script_dir
     ):
