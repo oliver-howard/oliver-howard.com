@@ -994,7 +994,7 @@ header .parallax .layer.fade-in.appear {
 @media screen and (max-width: 640px){
 
     .portfolio {
-        padding-top: 80px;
+        padding-top: 40px;
         padding-bottom: 60px;
     }
 
@@ -1101,7 +1101,7 @@ header .parallax .layer.fade-in.appear {
 
     .filter {
         padding-top: 140px;
-        padding-bottom: 80px;
+        padding-bottom: 0px;
     }
 
     .filter .tags li {
@@ -1109,7 +1109,7 @@ header .parallax .layer.fade-in.appear {
     }
 
     .filter .tags li a{
-        font-size: 11px; 
+        font-size: 11px;
         letter-spacing: 1px;
         padding: 10px 7px 10px 7px;
     }
