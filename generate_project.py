@@ -115,8 +115,8 @@ content="{project_title} photography project by Oliver Howard.">
 
         <link rel="canonical" href="../projects/{project_name}.html">
 
-        <link rel="icon" type="image/x-icon" href="../assets/img/oliver-howard-logo-black.png">
-        <link rel="apple-touch-icon" href="../assets/img/oliver-howard-logo-black.png">
+        <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+        <link rel="apple-touch-icon" href="../assets/img/favicon.png">
 
         <link href="../assets/css/normalize.css" rel="stylesheet">
         <link href="../assets/css/navigation.css" rel="stylesheet">
