@@ -97,6 +97,7 @@ def generate_html(project_name, project_title, description, photos_html):
     return f"""<!DOCTYPE html>
 <html lang="en">
     <head>
+        <script defer src="https://analytics.fiosa.us/script.js" data-website-id="eccc4ae9-45ab-420f-8cf1-5ffa6b63876c"></script>
 
         <meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -115,8 +116,8 @@ content="{project_title} photography project by Oliver Howard.">
 
         <link rel="canonical" href="../projects/{project_name}.html">
 
-        <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-        <link rel="apple-touch-icon" href="../assets/img/favicon.png">
+        <link rel="icon" type="image/png" href="../assets/img/oliver-howard-logo-black.png">
+        <link rel="apple-touch-icon" href="../assets/img/oliver-howard-logo-black.png">
 
         <link href="../assets/css/normalize.css" rel="stylesheet">
         <link href="../assets/css/navigation.css" rel="stylesheet">
