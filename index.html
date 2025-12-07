@@ -21,7 +21,20 @@
         <link rel="icon" type="image/png" sizes="32x32" href="assets/img/oliver-howard-logo-black.png">
         <link rel="apple-touch-icon" href="assets/img/oliver-howard-logo-black.png">
 
-        <link href="assets/css/normalize.css" rel="stylesheet">        <link href="assets/css/navigation.css" rel="stylesheet">        <link href="assets/css/photoswipe.css" rel="stylesheet">        <link href="assets/css/photoswipe-skin.css" rel="stylesheet">        <link href="assets/css/BeerSlider.css" rel="stylesheet">        <link href="assets/css/style.css" rel="stylesheet">
+        <link href="assets/css/normalize.css" rel="stylesheet">
+        <link href="assets/css/navigation.css" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
+        
+        <!-- Defer non-critical CSS -->
+        <link href="assets/css/photoswipe.css" rel="stylesheet" media="print" onload="this.media='all'">
+        <link href="assets/css/photoswipe-skin.css" rel="stylesheet" media="print" onload="this.media='all'">
+        <link href="assets/css/BeerSlider.css" rel="stylesheet" media="print" onload="this.media='all'">
+        
+        <noscript>
+            <link href="assets/css/photoswipe.css" rel="stylesheet">
+            <link href="assets/css/photoswipe-skin.css" rel="stylesheet">
+            <link href="assets/css/BeerSlider.css" rel="stylesheet">
+        </noscript>
     </head>
 
     <body>
@@ -236,11 +249,15 @@
             </footer>
         
         </main>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.1/masonry.pkgd.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.1/masonry.pkgd.js" defer></script>
 
-        <script src="assets/js/navigation.js"></script>        <script src="assets/js/observers.js"></script>        <script src="assets/js/parallax.js"></script>        <script src="assets/js/photoswipe.min.js"></script>        <script src="assets/js/photoswipe-ui-default.min.js"></script>        <script src="assets/js/photoswipe.js"></script>
+        <script src="assets/js/navigation.js" defer></script>
+        <script src="assets/js/observers.js" defer></script>
+        <script src="assets/js/parallax.js" defer></script>
+        <script src="assets/js/photoswipe.min.js" defer></script>
+        <script src="assets/js/photoswipe-ui-default.min.js" defer></script>
+        <script src="assets/js/photoswipe.js" defer></script>
         
     </body>
 </html>
