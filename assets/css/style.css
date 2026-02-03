@@ -1536,8 +1536,9 @@ main#error footer {
 
 .back-to-portfolio {
     position: fixed;
-    top: 40px;
-    right: 40px;
+    top: 47px;
+    right: auto;
+    left: 110px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1573,8 +1574,9 @@ main#error footer {
 
 @media screen and (max-width: 640px) {
     .back-to-portfolio {
-        top: 20px;
-        right: 20px;
+        top: 30px;
+        right: auto;
+        left: 80px;
         padding: 8px 12px;
         font-size: 12px;
     }
