@@ -12,7 +12,7 @@ Example:
 import sys
 import subprocess
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageOps
 
 
 def get_image_dimensions(image_path):
@@ -39,6 +39,9 @@ def create_thumbnail(image_path, thumbnail_path, max_size=800):
     """
     try:
         with Image.open(image_path) as img:
+            # Apply EXIF rotation if present
+            img = ImageOps.exif_transpose(img)
+
             # Convert RGBA to RGB if necessary
             if img.mode in ("RGBA", "LA", "P"):
                 background = Image.new("RGB", img.size, (255, 255, 255))
@@ -76,7 +79,7 @@ def generate_photo_item(
             <div class="photoswipe-item fade-in">
                 <a href="../media/projects/{photo_path}" itemprop="contentUrl" \
 data-size="{width}x{height}">
-                    <img src="../media/projects/{photo_path}" \
+                    <img src="../media/projects/{thumbnail_path}" \
 width="{width}" height="{height}"/>
                         <div class="overlay"></div>
                         <svg xmlns="http://www.w3.org/2000/svg" \
