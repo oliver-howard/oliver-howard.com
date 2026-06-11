@@ -2,7 +2,7 @@
 
 Personal photography portfolio website showcasing travel, landscape, and street photography.
 
-**Live Site:** [oliver-howard.com](https://oliver-howard.com)
+**Live Site:** [photos.oliver-howard.com](https://photos.oliver-howard.com)
 
 ## Adding New Projects
 
